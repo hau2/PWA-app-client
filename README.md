@@ -1,4 +1,9 @@
-# 🔍 Detailed Explanation of Service Worker & Cache Workflow in Your Source Code
+# 🔍 Detailed Explanation of Service Worker & Cache Workflow
+
+
+## Live Demo: https://pwa-app.leconghau.id.vn/
+### API: https://pwa-app-server.leconghau.id.vn/
+### Server source code: https://github.com/hau2/PWA-app-server
 
 Below is a step-by-step explanation of how the **Service Worker (SW)** operates in your **Progressive Web App (PWA)**, along with a lifecycle diagram of the SW.
 
