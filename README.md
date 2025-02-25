@@ -139,4 +139,6 @@ The diagram above illustrates the **workflow of the Service Worker** in your PWA
 - **The Service Worker auto-updates when a new version is available, ensuring users always see the latest content.**
 
 💯 **Now you have a deep understanding of how Service Worker & Cache work in your PWA!** 🚀🎉
+
+**Cache data is saved to Cache Storage of the bowser**
 ![Cache data is saved to Cache Storage of the bowser](https://hau2.github.io/online-resources/liveimage.png)
