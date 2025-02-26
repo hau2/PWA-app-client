@@ -1,4 +1,4 @@
-/* eslint-disable no-restricted-globals */
+/* eslint-disable no-restricted-globals, no-undef */
 // Disable ESLint rule for global variable restrictions (since service workers run in a different scope)
 
 import { precacheAndRoute } from 'workbox-precaching';
@@ -42,7 +42,7 @@ registerRoute(
 // 🔹 Cache API responses (for JSON and other data requests)
 // - Uses StaleWhileRevalidate strategy: Serves cached API responses immediately but fetches fresh data in the background
 registerRoute(
-  ({ url }) => url.pathname.startsWith('/api'),
+  ({ url }) => url.pathname.startsWith('/api/posts'),
   new StaleWhileRevalidate({
     cacheName: 'api-cache', // Name of the cache storage for API responses
   })
@@ -60,4 +60,40 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   console.log('Service Worker activating.');
   self.clients.claim();
+});
+
+self.addEventListener('push', (event) => {
+  console.log('📩 Push event received:', event);
+
+  if (event.data) {
+    const data = event.data.json();
+    console.log('🔔 Notification Data:', data);
+
+    const options = {
+      body: data.message, 
+      icon: '/logo192.png', // App icon
+      badge: '/logo192.png',
+      vibrate: [200, 100, 200], // Vibration effect
+      data: { url: data.url || '/' }, // Store the URL in the notification data
+      actions: [
+        { action: 'open', title: 'Open Link' },
+        { action: 'dismiss', title: 'Dismiss' }
+      ]
+    };
+
+    event.waitUntil(
+      self.registration.showNotification(data.title, options)
+    );
+  }
+});
+
+// 🔹 Handle click event on notification
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+
+  if (event.action === 'open' || event.notification.data.url) {
+    event.waitUntil(clients.openWindow(event.notification.data.url));
+  } else {
+    console.log('🔕 Notification dismissed.');
+  }
 });
