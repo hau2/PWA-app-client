@@ -2,6 +2,9 @@ import React, { useEffect, useState, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { askNotificationPermission, unsubscribeFromPushNotifications, sendPushNotification } from './utils/pushNotification';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircle, faFileWord } from '@fortawesome/free-solid-svg-icons';
+import './NotificationDetails.css'; // Create and import the corresponding CSS file
 
 const API_BASE_URL = 'https://pwa-app-server.leconghau.id.vn/api';  // Thay bằng domain thật nếu deploy
 
@@ -236,15 +239,86 @@ function LocationAccess() {
   );
 }
 
+const NotificationDetails = () => {
+  // useEffect(() => {
+  //   askNotificationPermission()
+  // }, [])
+
+  return (
+    <div className="modal">
+      <div className="modal-header">
+        <h2>Notification details</h2>
+        <span className="close">×</span>
+      </div>
+      <div className="modal-body">
+        <h3>YOUR COUNSELLING SESSION HAS BEEN CONFIRMED</h3>
+        <div className="date-time-important">
+          <div className="date-time">22 Jun 2024 12:00 AM</div>
+          <div className="important">
+            <FontAwesomeIcon icon={faCircle} />
+            Important
+          </div>
+        </div>
+        <div className="details">
+          <img
+            alt="A seaplane docked on a calm lake with a forest in the background"
+            height="200"
+            src="https://storage.googleapis.com/a1aa/image/rigEJ_BUQy8jY5ZZPmHKJeUyJtmPyQCc1Ult0n4Eq0k.jpg"
+            width="400"
+          />
+          <p>Hi Jane</p>
+          <p>Your counseling session booking has been confirmed. Here are your booking details.</p>
+          <p>
+            Date: 30th Jan 2025
+            <br />
+            Time: 10:30 am GMT+8
+            <br />
+            Location: 02-F2, Block B
+            <br />
+            Counsellor: Mr. Jay
+          </p>
+          <p>
+            If you wish to reschedule your session, please get in touch with your counselor directly and update the date using the following
+            <a href="#">Calendly link</a>.
+          </p>
+        </div>
+        <div className="attachments">
+          <h4>Attachment</h4>
+          <div className="attachment">
+            <FontAwesomeIcon icon={faFileWord} />
+            <div className="file-info">
+              <a href="#">S1234567_1234_02\1234.docx</a>
+              <div>1.2 MB</div>
+            </div>
+          </div>
+          <div className="attachment">
+            <FontAwesomeIcon icon={faFileWord} />
+            <div className="file-info">
+              <a href="#">S1234567_1234_02\1234.docx</a>
+              <div>1.2 MB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="modal-footer">
+        <button>Close</button>
+      </div>
+      <button onClick={askNotificationPermission}>Subcribe Notifications</button>
+    </div>
+  );
+};
+
 function App() {
   return (
     <Router>
       <Routes>
+        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/" element={<Home />} />
         <Route path="/post/:id" element={<PostDetails />} />
         <Route path="/push-notification" element={<NotificationManager />} />
         <Route path="/camera-access" element={<CameraAccess />} />
         <Route path="/location-access" element={<LocationAccess />} />
+        <Route path="/notification-details" element={<NotificationDetails />} />
       </Routes>
     </Router>
   );

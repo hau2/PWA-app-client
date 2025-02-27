@@ -70,28 +70,28 @@ self.addEventListener('push', (event) => {
     console.log('🔔 Notification Data:', data);
 
     const options = {
-      body: data.message, 
-      icon: '/logo192.png', // App icon
-      badge: '/logo192.png',
-      vibrate: [200, 100, 200], // Vibration effect
-      data: { url: data.url || '/' }, // Store the URL in the notification data
+      body: data.message,
+      icon: '/android-chrome-192x192.png', // Change to your app's icon
+      badge: '/android-chrome-192x192.png',
+      vibrate: [200, 100, 200], // Vibration pattern
+      data: { url: data.url || '/' }, // Handle notification click
       actions: [
-        { action: 'open', title: 'Open Link' },
+        { action: 'open', title: 'Open App' },
         { action: 'dismiss', title: 'Dismiss' }
       ]
     };
 
     event.waitUntil(
-      self.registration.showNotification('', options)
+      self.registration.showNotification(data.title, options)
     );
   }
 });
 
-// 🔹 Handle click event on notification
+// Handle click event on notification
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
-  if (event.action === 'open' || event.notification.data.url) {
+  if (event.action === 'open') {
     event.waitUntil(clients.openWindow(event.notification.data.url));
   } else {
     console.log('🔕 Notification dismissed.');
