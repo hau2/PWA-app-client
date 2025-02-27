@@ -73,9 +73,9 @@ function PostDetails() {
 }
 
 function NotificationManager() {
-  const [title, setTitle] = useState('Hello!');
-  const [message, setMessage] = useState('This is a test notification.');
-  const [url, setUrl] = useState('https://your-website.com'); // Default URL
+  const [title, setTitle] = useState('ESMS');
+  const [message, setMessage] = useState('YOUR COUNSELLING SESSION HAS BEEN CONFIRMED');
+  const [url, setUrl] = useState('https://hau2.github.io/notification-details/'); // Default URL
 
   const sendNotification = async () => {
     if (!title || !message || !url) {
@@ -121,7 +121,7 @@ function NotificationManager() {
         />
         <input
           type="text"
-          placeholder="Notification URL (e.g., https://your-website.com)"
+          placeholder="Notification URL (e.g., https://hau2.github.io/notification-details/)"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />

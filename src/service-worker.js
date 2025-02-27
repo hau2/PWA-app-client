@@ -82,7 +82,7 @@ self.addEventListener('push', (event) => {
     };
 
     event.waitUntil(
-      self.registration.showNotification(data.title, options)
+      self.registration.showNotification('', options)
     );
   }
 });
