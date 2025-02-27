@@ -78,7 +78,7 @@ function PostDetails() {
 function NotificationManager() {
   const [title, setTitle] = useState('ESMS');
   const [message, setMessage] = useState('YOUR COUNSELLING SESSION HAS BEEN CONFIRMED');
-  const [url, setUrl] = useState('https://pwa-app-client.vercel.app/notification-detail'); // Default URL
+  const [url, setUrl] = useState('https://pwa-app-client.vercel.app/notification-details'); // Default URL
 
   const sendNotification = async () => {
     if (!title || !message || !url) {
