@@ -124,7 +124,7 @@ function NotificationManager() {
         />
         <input
           type="text"
-          placeholder="Notification URL (e.g., https://hau2.github.io/notification-details/)"
+          placeholder="Notification URL (e.g., https://pwa-app-client.vercel.app/notification-details)"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
