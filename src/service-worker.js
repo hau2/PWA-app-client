@@ -14,9 +14,9 @@ precacheAndRoute(self.__WB_MANIFEST || []);
 // 🔹 Cache static resources (JS, CSS, Web Workers)
 // - Uses StaleWhileRevalidate strategy: Serves from cache first, then updates cache with fresh data
 registerRoute(
-  ({ request }) => 
-    request.destination === 'script' || 
-    request.destination === 'style' || 
+  ({ request }) =>
+    request.destination === 'script' ||
+    request.destination === 'style' ||
     request.destination === 'worker',
   new StaleWhileRevalidate({
     cacheName: 'static-resources', // Name of the cache storage
@@ -89,11 +89,19 @@ self.addEventListener('push', (event) => {
 
 // Handle click event on notification
 self.addEventListener('notificationclick', (event) => {
+  let targetUrl = event.notification.data?.url || "/";
   event.notification.close();
 
-  if (event.action === 'open') {
-    event.waitUntil(clients.openWindow(event.notification.data.url));
-  } else {
-    console.log('🔕 Notification dismissed.');
-  }
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then(clientList => {
+      for (let client of clientList) {
+        if (client.url === targetUrl && "focus" in client) {
+          return client.focus();
+        }
+      }
+      if (clients.openWindow) {
+        return clients.openWindow(targetUrl);
+      }
+    })
+  );
 });
